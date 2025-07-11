@@ -73,7 +73,12 @@ export const ParticipacionList = () => {
 
         <TableContainer
           component={Paper}
-          sx={{ borderRadius: 3, backgroundColor: "#fdfdfd" }}
+          sx={{
+            borderRadius: 3,
+            backgroundColor: "#fdfdfd",
+            maxWidth: "100%", // 🔒 límite horizontal
+            overflowX: "auto", // 🧭 scroll horizontal si se desborda
+          }}
           elevation={3}
         >
           <Table>
