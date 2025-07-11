@@ -1,11 +1,6 @@
 import { Link } from "react-router-dom";
-import {
-  AppBar,
-  Toolbar,
-  Button,
-  Typography,
-  Stack,
-} from "@mui/material";
+import { AppBar, Toolbar, Button, Typography, Stack } from "@mui/material";
+import MovieCreationIcon from "@mui/icons-material/MovieCreation"; // Ícono de encabezado
 
 interface MenuItem {
   label: string;
@@ -25,10 +20,10 @@ export const Navbar = () => {
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: "#006400", // verde oscuro
+        backgroundColor: "#006400",
         color: "#fff",
         boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
-        zIndex: 1300, // sobre otros elementos
+        zIndex: 1300,
       }}
     >
       <Toolbar
@@ -38,9 +33,12 @@ export const Navbar = () => {
           px: 3,
         }}
       >
-        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-          🎬 Sistema de Cine
-        </Typography>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <MovieCreationIcon />
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            Sistema de Cine
+          </Typography>
+        </Stack>
 
         <Stack direction="row" spacing={2} flexWrap="wrap">
           {menuItems.map((item) => (
@@ -53,7 +51,7 @@ export const Navbar = () => {
                 textTransform: "none",
                 fontWeight: "medium",
                 "&:hover": {
-                  color: "#A5D6A7", // verde claro
+                  color: "#A5D6A7",
                   textDecoration: "underline",
                 },
               }}

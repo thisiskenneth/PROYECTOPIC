@@ -46,12 +46,11 @@ export const ParticipacionList = () => {
   return (
     <Box
       sx={{
-        minHeight: "calc(10vh - 64px)",
+        minHeight: "calc(100vh - 64px)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         px: 2,
-        backgroundColor: "#f0f0f0",
       }}
     >
       <Box sx={{ width: "100%", maxWidth: 900 }}>
