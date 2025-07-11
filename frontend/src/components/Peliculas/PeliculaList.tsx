@@ -15,6 +15,9 @@ import {
 import { getPeliculas, deletePelicula } from "../../services/peliculaService";
 import type { Pelicula } from "../../interfaces/Pelicula";
 import { useNavigate } from "react-router-dom";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export const PeliculaList = () => {
   const [peliculas, setPeliculas] = useState<Pelicula[]>([]);
@@ -44,32 +47,36 @@ export const PeliculaList = () => {
 
   return (
     <Box sx={{ mt: 4, px: 2 }}>
-      <Paper elevation={3} sx={{ p: 3, borderRadius: 4 }}>
+      <Paper elevation={4} sx={{ p: 4, borderRadius: 4 }}>
         <Typography
           variant="h4"
           gutterBottom
           sx={{ fontWeight: "bold", color: "#006400" }}
         >
-          🎬 Lista de Películas
+          Lista de Películas
         </Typography>
 
         <Button
+          startIcon={<AddCircleIcon />}
           variant="contained"
           sx={{
-            mb: 2,
+            mb: 3,
             backgroundColor: "#006400",
             "&:hover": { backgroundColor: "#004d00" },
           }}
           onClick={() => navigate("/peliculas/crear")}
         >
-          ➕ Agregar Película
+          Agregar Película
         </Button>
 
-        <TableContainer component={Paper} sx={{ borderRadius: 3 }}>
+        <TableContainer
+          component={Paper}
+          sx={{ borderRadius: 3, overflowX: "auto" }}
+        >
           <Table>
             <TableHead sx={{ backgroundColor: "#e0f2f1" }}>
               <TableRow>
-                <TableCell sx={{ fontWeight: "bold" }}>ID</TableCell>
+
                 <TableCell sx={{ fontWeight: "bold" }}>Título</TableCell>
                 <TableCell sx={{ fontWeight: "bold" }}>Año</TableCell>
                 <TableCell sx={{ fontWeight: "bold" }}>Género</TableCell>
@@ -79,15 +86,20 @@ export const PeliculaList = () => {
             <TableBody>
               {peliculas.map((p) => (
                 <TableRow key={p.id_pelicula}>
-                  <TableCell>{p.id_pelicula}</TableCell>
+
                   <TableCell>{p.titulo}</TableCell>
                   <TableCell>{p.anio}</TableCell>
                   <TableCell>{p.genero}</TableCell>
                   <TableCell>
-                    <Stack direction="row" spacing={1}>
+                    <Stack
+                      direction="row"
+                      spacing={1}
+                      sx={{ flexWrap: "wrap" }}
+                    >
                       <Button
                         variant="outlined"
                         color="success"
+                        startIcon={<EditIcon />}
                         onClick={() =>
                           navigate(`/peliculas/editar/${p.id_pelicula}`)
                         }
@@ -97,6 +109,7 @@ export const PeliculaList = () => {
                       <Button
                         variant="outlined"
                         color="error"
+                        startIcon={<DeleteIcon />}
                         onClick={() => eliminar(p.id_pelicula)}
                       >
                         Eliminar

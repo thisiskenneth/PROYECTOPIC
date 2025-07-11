@@ -19,6 +19,10 @@ import {
 } from "../../services/participacionService";
 import type { Participacion } from "../../interfaces/Participacion";
 
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 export const ParticipacionList = () => {
   const [participaciones, setParticipaciones] = useState<Participacion[]>([]);
   const navigate = useNavigate();
@@ -42,94 +46,101 @@ export const ParticipacionList = () => {
   return (
     <Box
       sx={{
-        minHeight: "calc(100vh - 64px)", // ← espacio libre menos la altura del navbar
+        minHeight: "calc(10vh - 64px)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         px: 2,
-        backgroundColor: "#1e1e1e", // opcional, fondo general
+        backgroundColor: "#f0f0f0",
       }}
     >
-      <Box sx={{ width: "100%", maxWidth: 700 }}>
-        <Typography
-          variant="h4"
-          gutterBottom
-          sx={{ fontWeight: "bold", color: "#006400" }}
-        >
-          🤝 Participaciones en Películas
-        </Typography>
+      <Box sx={{ width: "100%", maxWidth: 900 }}>
+        <Paper elevation={4} sx={{ p: 4, borderRadius: 4 }}>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{ fontWeight: "bold", color: "#006400" }}
+          >
+            Participaciones en Películas
+          </Typography>
 
-        <Button
-          variant="contained"
-          onClick={() => navigate("/participaciones/crear")}
-          sx={{
-            mb: 3,
-            backgroundColor: "#006400",
-            "&:hover": { backgroundColor: "#004d00" },
-          }}
-        >
-          Agregar Participación
-        </Button>
+          <Button
+            startIcon={<AddCircleIcon />}
+            variant="contained"
+            onClick={() => navigate("/participaciones/crear")}
+            sx={{
+              mb: 3,
+              backgroundColor: "#006400",
+              "&:hover": { backgroundColor: "#004d00" },
+            }}
+          >
+            Agregar Participación
+          </Button>
 
-        <TableContainer
-          component={Paper}
-          sx={{
-            borderRadius: 3,
-            backgroundColor: "#fdfdfd",
-            maxWidth: "100%", // 🔒 límite horizontal
-            overflowX: "auto", // 🧭 scroll horizontal si se desborda
-          }}
-          elevation={3}
-        >
-          <Table>
-            <TableHead sx={{ backgroundColor: "#e0f2f1" }}>
-              <TableRow>
-                <TableCell sx={{ fontWeight: "bold" }}>🎬 Película</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>🧑 Actor</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>🎭 Rol</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>⚙️ Acciones</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {participaciones.map((p) => (
-                <TableRow key={`${p.id_pelicula}-${p.id_actor}`}>
-                  <TableCell>{p.nombre_pelicula}</TableCell>
-                  <TableCell>{p.nombre_actor}</TableCell>
-                  <TableCell>{p.rol}</TableCell>
-                  <TableCell>
-                    <Stack direction="row" spacing={1}>
-                      <Button
-                        variant="outlined"
-                        color="info"
-                        onClick={() =>
-                          navigate(
-                            `/participaciones/editar/${p.id_pelicula}/${p.id_actor}`
-                          )
-                        }
-                      >
-                        Editar
-                      </Button>
-                      <Button
-                        variant="outlined"
-                        color="error"
-                        onClick={() => eliminar(p.id_pelicula, p.id_actor)}
-                      >
-                        Eliminar
-                      </Button>
-                    </Stack>
-                  </TableCell>
-                </TableRow>
-              ))}
-              {participaciones.length === 0 && (
+          <TableContainer
+            component={Paper}
+            sx={{
+              borderRadius: 3,
+              backgroundColor: "#fff",
+              maxWidth: "100%",
+              overflowX: "auto",
+            }}
+            elevation={2}
+          >
+            <Table>
+              <TableHead sx={{ backgroundColor: "#e0f2f1" }}>
                 <TableRow>
-                  <TableCell colSpan={4} align="center">
-                    No hay participaciones registradas.
-                  </TableCell>
+                  <TableCell sx={{ fontWeight: "bold" }}>Película</TableCell>
+                  <TableCell sx={{ fontWeight: "bold" }}>Actor</TableCell>
+                  <TableCell sx={{ fontWeight: "bold" }}>Rol</TableCell>
+                  <TableCell sx={{ fontWeight: "bold" }}>Acciones</TableCell>
                 </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {participaciones.map((p) => (
+                  <TableRow key={`${p.id_pelicula}-${p.id_actor}`} hover>
+                    <TableCell>{p.nombre_pelicula}</TableCell>
+                    <TableCell>{p.nombre_actor}</TableCell>
+                    <TableCell>{p.rol}</TableCell>
+                    <TableCell>
+                      <Stack direction="row" spacing={1} flexWrap="wrap">
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          startIcon={<EditIcon />}
+                          onClick={() =>
+                            navigate(
+                              `/participaciones/editar/${p.id_pelicula}/${p.id_actor}`
+                            )
+                          }
+                        >
+                          Editar
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          color="error"
+                          startIcon={<DeleteIcon />}
+                          onClick={() => eliminar(p.id_pelicula, p.id_actor)}
+                        >
+                          Eliminar
+                        </Button>
+                      </Stack>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {participaciones.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={4} align="center">
+                      <Typography variant="body1" color="text.secondary">
+                        No hay participaciones registradas.
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
       </Box>
     </Box>
   );

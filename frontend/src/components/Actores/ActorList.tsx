@@ -15,6 +15,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import { getActores, deleteActor } from "../../services/actorService";
 import type { Actor } from "../../interfaces/Actor";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export const ActorList = () => {
   const [actores, setActores] = useState<Actor[]>([]);
@@ -43,54 +46,55 @@ export const ActorList = () => {
   };
 
   return (
-    <Box sx={{ p: 4 }}>
-      <Typography variant="h4" gutterBottom color="primary" fontWeight="bold">
-        🎭 Lista de Actores
-      </Typography>
+    <Box sx={{ mt: 4, px: 2 }}>
+      <Paper elevation={4} sx={{ p: 4, borderRadius: 4 }}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          sx={{ fontWeight: "bold", color: "#006400" }}
+        >
+          Lista de Actores
+        </Typography>
 
-      <Button
-        variant="contained"
-        color="success"
-        onClick={() => navigate("/actores/crear")}
-        sx={{ mb: 3 }}
-      >
-        ➕ Agregar Actor
-      </Button>
+        <Button
+          startIcon={<AddCircleIcon />}
+          variant="contained"
+          color="success"
+          sx={{ mb: 3 }}
+          onClick={() => navigate("/actores/crear")}
+        >
+          Agregar Actor
+        </Button>
 
-      <Paper elevation={3}>
-        <TableContainer>
+        <TableContainer
+          component={Paper}
+          sx={{ borderRadius: 3, overflowX: "auto" }}
+        >
           <Table>
-            <TableHead sx={{ backgroundColor: "#eeeeee" }}>
+            <TableHead sx={{ backgroundColor: "#e0f2f1" }}>
               <TableRow>
-                <TableCell>
-                  <strong>ID</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Nombre</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Nacionalidad</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Edad</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Acciones</strong>
-                </TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>Nombre</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>Nacionalidad</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>Edad</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>Acciones</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {actores.map((actor) => (
                 <TableRow key={actor.id_actor} hover>
-                  <TableCell>{actor.id_actor}</TableCell>
                   <TableCell>{actor.nombre}</TableCell>
                   <TableCell>{actor.nacionalidad}</TableCell>
                   <TableCell>{actor.edad}</TableCell>
                   <TableCell>
-                    <Stack direction="row" spacing={1}>
+                    <Stack
+                      direction="row"
+                      spacing={1}
+                      sx={{ flexWrap: "wrap" }}
+                    >
                       <Button
                         variant="outlined"
                         color="primary"
+                        startIcon={<EditIcon />}
                         onClick={() =>
                           navigate(`/actores/editar/${actor.id_actor}`)
                         }
@@ -100,6 +104,7 @@ export const ActorList = () => {
                       <Button
                         variant="outlined"
                         color="error"
+                        startIcon={<DeleteIcon />}
                         onClick={() => eliminar(actor.id_actor)}
                       >
                         Eliminar
@@ -110,7 +115,7 @@ export const ActorList = () => {
               ))}
               {actores.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={5} align="center">
+                  <TableCell colSpan={4} align="center">
                     <Typography variant="body1" color="text.secondary">
                       No hay actores registrados.
                     </Typography>

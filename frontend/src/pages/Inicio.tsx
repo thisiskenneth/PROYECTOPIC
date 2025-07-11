@@ -1,4 +1,17 @@
-import { Box, Typography, Paper, Stack } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Paper,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+} from "@mui/material";
+import MovieIcon from "@mui/icons-material/Movie";
+import PersonIcon from "@mui/icons-material/Person";
+import Diversity3Icon from "@mui/icons-material/Diversity3";
+import InfoIcon from "@mui/icons-material/Info";
 
 export const Inicio = () => {
   return (
@@ -8,16 +21,17 @@ export const Inicio = () => {
         justifyContent: "center",
         mt: 4,
         px: 2,
+        minHeight: "calc(10vh - 64px)",
       }}
     >
       <Paper
-        elevation={3}
+        elevation={4}
         sx={{
-          p: 4,
+          p: 5,
           maxWidth: 800,
           width: "100%",
-          bgcolor: "#fff",
-          borderRadius: 3,
+          bgcolor: "#fafafa",
+          borderRadius: 4,
         }}
       >
         <Typography
@@ -25,31 +39,58 @@ export const Inicio = () => {
           gutterBottom
           sx={{ color: "#006400", fontWeight: "bold" }}
         >
-          Bienvenido al Sistema de Cine 🎬
+          Bienvenido al Sistema de Cine
         </Typography>
 
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          Esta plataforma te permite gestionar películas, actores y sus
+        <Typography variant="body1" sx={{ mb: 3, color: "#333" }}>
+          Esta plataforma permite gestionar películas, actores y sus
           participaciones en distintas producciones. Utiliza el menú de
-          navegación superior para acceder a las diferentes secciones del
-          sistema:
+          navegación superior para explorar las funcionalidades disponibles:
         </Typography>
 
-        <Stack spacing={2}>
-          <Typography>
-            📽️ <strong>Películas:</strong> Añadir, editar o eliminar películas.
-          </Typography>
-          <Typography>
-            🧑‍🎤 <strong>Actores:</strong> Gestionar información de los actores.
-          </Typography>
-          <Typography>
-            🤝 <strong>Participaciones:</strong> Relacionar actores con
-            películas y definir sus roles.
-          </Typography>
-          <Typography>
-            ℹ️ <strong>Acerca de:</strong> Información del desarrollador.
-          </Typography>
-        </Stack>
+        <Divider sx={{ mb: 3 }} />
+
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <MovieIcon sx={{ color: "#006400" }} />
+            </ListItemIcon>
+            <ListItemText
+              primary="Películas"
+              secondary="Añadir, editar o eliminar películas registradas."
+            />
+          </ListItem>
+
+          <ListItem>
+            <ListItemIcon>
+              <PersonIcon sx={{ color: "#006400" }} />
+            </ListItemIcon>
+            <ListItemText
+              primary="Actores"
+              secondary="Gestionar la información de los actores."
+            />
+          </ListItem>
+
+          <ListItem>
+            <ListItemIcon>
+              <Diversity3Icon sx={{ color: "#006400" }} />
+            </ListItemIcon>
+            <ListItemText
+              primary="Participaciones"
+              secondary="Relacionar actores con películas y definir sus roles."
+            />
+          </ListItem>
+
+          <ListItem>
+            <ListItemIcon>
+              <InfoIcon sx={{ color: "#006400" }} />
+            </ListItemIcon>
+            <ListItemText
+              primary="Acerca de"
+              secondary="Información general sobre el sistema y el desarrollador."
+            />
+          </ListItem>
+        </List>
       </Paper>
     </Box>
   );
